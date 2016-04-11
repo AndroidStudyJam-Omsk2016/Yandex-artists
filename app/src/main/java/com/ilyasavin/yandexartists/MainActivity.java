@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.ilyasavin.yandexartists.adapters.ArtistsRVAdapter;
 import com.ilyasavin.yandexartists.api.APIManager;
@@ -22,28 +23,30 @@ import retrofit.client.Response;
 public class MainActivity extends AppCompatActivity {
 
 
-    ArrayList<Artist> artistsList;
-    RecyclerView mArtistsView;
-    ArtistsRVAdapter mArtistsRVAdapter;
+    private ArrayList<Artist> mArtistsList;
+    private RecyclerView mArtistsView;
+    private ArtistsRVAdapter mArtistsRVAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-
-        artistsList = new ArrayList<>();
-
-        mArtistsView = (RecyclerView)findViewById(R.id.card_recycler_view);
-
-        mArtistsView.setHasFixedSize(true);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-        mArtistsView.setLayoutManager(layoutManager);
+        initViewElements();
 
         APIManager.getApiService().getData(callback);
 
+    }
+
+    private void initViewElements() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        mArtistsList = new ArrayList<>();
+        mArtistsView = (RecyclerView)findViewById(R.id.card_recycler_view);
+        mArtistsView.setHasFixedSize(true);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        mArtistsView.setLayoutManager(layoutManager);
     }
 
     @Override
@@ -55,9 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
@@ -73,22 +74,15 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void success (List<Artist> artists, Response response2) {
 
-            artistsList = new ArrayList<>(artists);
-
-
-            mArtistsRVAdapter = new ArtistsRVAdapter(MainActivity.this,artistsList);
-
+            mArtistsList = new ArrayList<>(artists);
+            mArtistsRVAdapter = new ArtistsRVAdapter(MainActivity.this, mArtistsList);
             mArtistsView.setAdapter(mArtistsRVAdapter);
-
-
-
-
         }
 
         @Override
         public void failure (RetrofitError error) {
 
-        int a =5;
+            Toast.makeText(MainActivity.this,"Response error",Toast.LENGTH_SHORT).show();
 
         }
     };

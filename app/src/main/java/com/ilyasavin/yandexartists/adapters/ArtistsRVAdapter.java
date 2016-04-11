@@ -50,10 +50,12 @@ public class ArtistsRVAdapter extends RecyclerView.Adapter<ArtistsRVAdapter.View
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        TextView artistName;
-        TextView genresNames;
-        TextView amountSongs;
-        ImageView artistImage;
+
+        protected TextView artistName;
+        protected TextView genresNames;
+        protected TextView amountSongs;
+        protected ImageView artistImage;
+
         public ViewHolder(View view) {
             super(view);
 
