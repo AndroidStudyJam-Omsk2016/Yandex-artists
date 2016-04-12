@@ -13,6 +13,7 @@ public class APIManager {
     private static ApiService apiService;
     private static final String URL = "http://download.cdn.yandex.net/mobilization-2016";
 
+
     public interface ApiService {
 
         @GET("/artists.json")

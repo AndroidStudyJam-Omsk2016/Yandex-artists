@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.ilyasavin.yandexartists.models.Artist;
 import com.squareup.picasso.Picasso;
@@ -16,6 +17,8 @@ public class ArtistInfoActivity extends AppCompatActivity {
 
     private ImageView mImageView;
     private Artist mArtist;
+    private TextView mDescriptionText;
+    private TextView mGenresText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +32,8 @@ public class ArtistInfoActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         mImageView = (ImageView)findViewById(R.id.artistImage);
+        mGenresText = (TextView)findViewById(R.id.tv_genres);
+        mDescriptionText = (TextView)findViewById(R.id.tv_descr);
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             mImageView.setTransitionName("ANIM");
@@ -39,6 +44,16 @@ public class ArtistInfoActivity extends AppCompatActivity {
         Picasso.with(this).load(mArtist.getCover().getSmall()).into(mImageView);
 
         toolbar.setTitle(mArtist.getName());
+        mGenresText.setText(mArtist.getGenres().get(0));
+        mDescriptionText.setText(mArtist.getDescription());
+
+        toolbar.setNavigationIcon(R.drawable.ic_action_name);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
