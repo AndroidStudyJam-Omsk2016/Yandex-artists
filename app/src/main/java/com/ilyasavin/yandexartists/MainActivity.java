@@ -16,14 +16,16 @@ import com.ilyasavin.yandexartists.models.Artist;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 public class MainActivity extends AppCompatActivity {
 
+    @Bind(R.id.card_recycler_view) RecyclerView mArtistsView;
+    @Bind(R.id.toolbar) Toolbar toolbar;
     private ArrayList<Artist> mArtistsList;
-    private RecyclerView mArtistsView;
     private ArtistsRVAdapter mArtistsRVAdapter;
 
     @Override
@@ -39,10 +41,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initViewElements() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
         setSupportActionBar(toolbar);
         mArtistsList = new ArrayList<>();
-        mArtistsView = (RecyclerView)findViewById(R.id.card_recycler_view);
         mArtistsView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         mArtistsView.setLayoutManager(layoutManager);

@@ -6,6 +6,7 @@ package com.ilyasavin.yandexartists.adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +21,11 @@ import com.ilyasavin.yandexartists.navigator.ActivityNavigator;
 import com.squareup.picasso.Picasso;
 
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
+
+import butterknife.Bind;
 
 public class ArtistsRVAdapter extends RecyclerView.Adapter<ArtistsRVAdapter.ViewHolder> {
 
@@ -30,7 +35,6 @@ public class ArtistsRVAdapter extends RecyclerView.Adapter<ArtistsRVAdapter.View
     public ArtistsRVAdapter(Context context, ArrayList<Artist> artistsList) {
         this.context = context;
         this.artistsList = artistsList;
-
     }
 
     @Override
@@ -57,19 +61,19 @@ public class ArtistsRVAdapter extends RecyclerView.Adapter<ArtistsRVAdapter.View
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-        protected TextView artistName;
-        protected TextView genresNames;
-        protected TextView amountSongs;
-        protected ImageView artistImage;
+        @Bind(R.id.tv_name)
+        TextView artistName;
+        @Bind(R.id.tv_genres)
+        TextView genresNames;
+        @Bind(R.id.tv_amount)
+        TextView amountSongs;
+        @Bind(R.id.img_android)
+        ImageView artistImage;
+
         protected Context context;
 
         public ViewHolder(View view,Context context) {
             super(view);
-
-            artistName = (TextView)view.findViewById(R.id.tv_name);
-            artistImage = (ImageView)view.findViewById(R.id.img_android);
-            genresNames = (TextView)view.findViewById(R.id.tv_genres);
-            amountSongs = (TextView)view.findViewById(R.id.tv_amount);
 
             view.setOnClickListener(this);
 
