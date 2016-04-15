@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.ilyasavin.yandexartists.models.Artist;
 import com.squareup.picasso.Picasso;
 
-public class ArtistInfoActivity extends AppCompatActivity {
+public class ArtistInfoActivity extends BaseActivity {
 
     private ImageView mImageView;
     private Artist mArtist;
@@ -41,7 +41,7 @@ public class ArtistInfoActivity extends AppCompatActivity {
 
         mArtist = getIntent().getParcelableExtra("Artist");
 
-        Picasso.with(this).load(mArtist.getCover().getSmall()).into(mImageView);
+        Picasso.with(this).load(mArtist.getCover().getBig()).into(mImageView);
 
         toolbar.setTitle(mArtist.getName());
         mGenresText.setText(mArtist.getGenres().get(0));

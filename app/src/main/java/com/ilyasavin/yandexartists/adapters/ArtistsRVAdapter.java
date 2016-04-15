@@ -45,7 +45,7 @@ public class ArtistsRVAdapter extends RecyclerView.Adapter<ArtistsRVAdapter.View
         viewHolder.artistName.setText(artistsList.get(i).getName());
         viewHolder.genresNames.setText(artistsList.get(i).getGenres().get(0));
         viewHolder.amountSongs.setText(artistsList.get(i).getTracks()+ " Tracks");
-        Picasso.with(context).load(artistsList.get(i).getCover().getBig()).error( android.R.drawable.ic_delete )
+        Picasso.with(context).load(artistsList.get(i).getCover().getSmall()).error( android.R.drawable.ic_delete )
                 .placeholder( R.drawable.image_progress).into(viewHolder.artistImage);
 
     }

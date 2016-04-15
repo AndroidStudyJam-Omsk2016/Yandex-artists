@@ -1,18 +1,14 @@
 package com.ilyasavin.yandexartists.navigator;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Parcelable;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.util.Pair;
 import android.view.View;
-import android.widget.ImageView;
-
 import com.ilyasavin.yandexartists.ArtistInfoActivity;
-import com.ilyasavin.yandexartists.MainActivity;
-import com.ilyasavin.yandexartists.R;
+
 
 /**
  * Created by ilyas on 4/11/2016.
