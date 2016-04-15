@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Исполнители</string>
+    <string name="app_name">Yandex Исполнители</string>
+    <string name="about_developer">О разработчике</string>
+    <string name="developer_name">Илья Савин</string>
 </resources>
