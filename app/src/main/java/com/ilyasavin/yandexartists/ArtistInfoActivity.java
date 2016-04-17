@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.ilyasavin.yandexartists.components.Constants;
 import com.ilyasavin.yandexartists.models.Artist;
 import com.squareup.picasso.Picasso;
 
@@ -18,14 +19,10 @@ import butterknife.ButterKnife;
 
 public class ArtistInfoActivity extends BaseActivity {
 
-    @Bind(R.id.artistImage)
-    ImageView mImageView;
-    @Bind(R.id.tv_descr)
-    TextView mDescriptionText;
-    @Bind(R.id.tv_genres)
-    TextView mGenresText;
-    @Bind(R.id.toolbar)
-    Toolbar toolbar;
+    @Bind(R.id.artistImage) ImageView mImageView;
+    @Bind(R.id.tv_descr) TextView mDescriptionText;
+    @Bind(R.id.tv_genres) TextView mGenresText;
+    @Bind(R.id.toolbar) Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,13 +33,12 @@ public class ArtistInfoActivity extends BaseActivity {
 
     private void initViewElements() {
 
-        ButterKnife.bind(this);
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            mImageView.setTransitionName("ANIM");
+            mImageView.setTransitionName(Constants.ARTIST_TRANSITION);
         }
 
-        Artist mArtist = getIntent().getParcelableExtra("Artist");
+        Artist mArtist = getIntent().getParcelableExtra(Constants.ARTIST_EXTRA);
 
         Picasso.with(this).load(mArtist.getCover().getBig()).into(mImageView);
 

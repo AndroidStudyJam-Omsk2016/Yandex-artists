@@ -21,27 +21,32 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/img_android">
+            android:layout_alignParentTop="false"
+            android:layout_toEndOf="@+id/img_android"
+            android:layout_alignParentLeft="false"
+            android:layout_alignParentBottom="false"
+            android:layout_alignParentRight="false"
+            android:layout_margin="16dp">
 
             <TextView
                android:textSize="18sp"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:id="@+id/tv_name"
-               android:textStyle="bold" />
+               android:textStyle="bold"
+                android:text="Name" />
             <TextView
                 android:textSize="14sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/tv_genres"
-                 />
+                android:text="genre" />
             <TextView
                 android:textSize="12sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/tv_amount"
-                 />
+                android:text="10 albums" />
 
 
         </LinearLayout>

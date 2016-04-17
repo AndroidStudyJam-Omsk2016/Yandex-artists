@@ -1,45 +1,44 @@
 package com.ilyasavin.yandexartists;
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.DecelerateInterpolator;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.ilyasavin.yandexartists.adapters.ArtistsRVAdapter;
 import com.ilyasavin.yandexartists.api.APIManager;
+import com.ilyasavin.yandexartists.components.ArtistsController;
 import com.ilyasavin.yandexartists.models.Artist;
 import com.ilyasavin.yandexartists.views.MaterialDrawer;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 public class MainActivity extends BaseActivity {
 
-    private ArrayList<Artist> mArtistsList;
-    private RecyclerView mArtistsView;
-    private ArtistsRVAdapter mArtistsRVAdapter;
+    private ArtistsController mArtistController;
+
+    @Bind(R.id.progressBar) ProgressBar progressBar;
+    @Bind(R.id.card_recycler_view) RecyclerView mArtistsView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
-
-
+        mArtistController = new ArtistsController();
         initViewElements();
-
         APIManager.getApiService().getData(callback);
+
+
+
 
     }
 
@@ -49,12 +48,12 @@ public class MainActivity extends BaseActivity {
         setSupportActionBar(toolbar);
         MaterialDrawer materialDrawer = new MaterialDrawer();
         materialDrawer.initDrawer(toolbar,this);
-        mArtistsList = new ArrayList<>();
         mArtistsView = (RecyclerView)findViewById(R.id.card_recycler_view);
         mArtistsView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         mArtistsView.setLayoutManager(layoutManager);
         mArtistsView.setOnScrollListener(onScrollListener);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
     }
 
@@ -63,9 +62,11 @@ public class MainActivity extends BaseActivity {
         @Override
         public void success (List<Artist> artists, Response response2) {
 
-            mArtistsList = new ArrayList<>(artists);
-            mArtistsRVAdapter = new ArtistsRVAdapter(MainActivity.this, mArtistsList);
+            mArtistController.setArtistsList(artists);
+            ArtistsRVAdapter mArtistsRVAdapter = new ArtistsRVAdapter(MainActivity.this, mArtistController.getArtistsList());
             mArtistsView.setAdapter(mArtistsRVAdapter);
+            progressBar.setVisibility(View.GONE);
+
         }
 
         @Override
