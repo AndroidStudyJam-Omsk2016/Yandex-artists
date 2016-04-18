@@ -19,10 +19,14 @@ import butterknife.ButterKnife;
 
 public class ArtistInfoActivity extends BaseActivity {
 
-    @Bind(R.id.artistImage) ImageView mImageView;
-    @Bind(R.id.tv_descr) TextView mDescriptionText;
-    @Bind(R.id.tv_genres) TextView mGenresText;
-    @Bind(R.id.toolbar) Toolbar toolbar;
+    @Bind(R.id.artistImage)
+    ImageView mImageView;
+    @Bind(R.id.tv_descr)
+    TextView mDescriptionText;
+    @Bind(R.id.tv_genres)
+    TextView mGenresText;
+    @Bind(R.id.toolbar)
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +38,7 @@ public class ArtistInfoActivity extends BaseActivity {
     private void initViewElements() {
 
 
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             mImageView.setTransitionName(Constants.ARTIST_TRANSITION);
         }
 

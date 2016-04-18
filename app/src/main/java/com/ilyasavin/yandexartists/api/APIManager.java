@@ -20,7 +20,7 @@ public class APIManager {
 
     }
 
-    public static ApiService getApiService () {
+    public static ApiService getApiService() {
 
         RestAdapter restAdapter = new RestAdapter.Builder().
                 setEndpoint(URL).build();

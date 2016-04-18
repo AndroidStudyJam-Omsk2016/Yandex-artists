@@ -8,6 +8,7 @@ public class Cover implements Parcelable {
 
     private String small;
     private String big;
+
     protected Cover(Parcel in) {
         small = in.readString();
         big = in.readString();
@@ -39,41 +40,32 @@ public class Cover implements Parcelable {
 
 
     /**
-     * 
-     * @return
-     *     The small
+     * @return The small
      */
     public String getSmall() {
         return small;
     }
 
     /**
-     * 
-     * @param small
-     *     The small
+     * @param small The small
      */
     public void setSmall(String small) {
         this.small = small;
     }
 
     /**
-     * 
-     * @return
-     *     The big
+     * @return The big
      */
     public String getBig() {
         return big;
     }
 
     /**
-     * 
-     * @param big
-     *     The big
+     * @param big The big
      */
     public void setBig(String big) {
         this.big = big;
     }
-
 
 
 }

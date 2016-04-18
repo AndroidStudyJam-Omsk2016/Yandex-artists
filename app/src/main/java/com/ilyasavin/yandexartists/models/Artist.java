@@ -2,6 +2,7 @@ package com.ilyasavin.yandexartists.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +17,7 @@ public class Artist implements Parcelable {
     private Integer tracks;
     private Integer albums;
     private String link;
+
     protected Artist(Parcel in) {
 
         description = in.readString();

@@ -3,6 +3,7 @@ package com.ilyasavin.yandexartists.adapters;
 /**
  * Created by ilyas on 4/10/2016.
  */
+
 import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -41,7 +42,7 @@ public class ArtistsRVAdapter extends RecyclerView.Adapter<ArtistsRVAdapter.View
     @Override
     public ArtistsRVAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_artist, viewGroup, false);
-        return new ViewHolder(view,viewGroup.getContext());
+        return new ViewHolder(view, viewGroup.getContext());
     }
 
     @Override
@@ -49,9 +50,9 @@ public class ArtistsRVAdapter extends RecyclerView.Adapter<ArtistsRVAdapter.View
 
         viewHolder.artistName.setText(artistsList.get(i).getName());
         viewHolder.genresNames.setText(artistsList.get(i).getGenres().get(0));
-        viewHolder.amountSongs.setText(artistsList.get(i).getTracks()+ " Tracks");
-        Picasso.with(context).load(artistsList.get(i).getCover().getSmall()).error( android.R.drawable.ic_delete )
-                .placeholder( R.drawable.image_progress).into(viewHolder.artistImage);
+        viewHolder.amountSongs.setText(artistsList.get(i).getTracks() + " Tracks");
+        Picasso.with(context).load(artistsList.get(i).getCover().getSmall()).error(android.R.drawable.ic_delete)
+                .placeholder(R.drawable.image_progress).into(viewHolder.artistImage);
 
     }
 
@@ -60,7 +61,7 @@ public class ArtistsRVAdapter extends RecyclerView.Adapter<ArtistsRVAdapter.View
         return artistsList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         @Bind(R.id.tv_name)
         TextView artistName;
@@ -73,7 +74,7 @@ public class ArtistsRVAdapter extends RecyclerView.Adapter<ArtistsRVAdapter.View
 
         protected Context context;
 
-        public ViewHolder(View view,Context context) {
+        public ViewHolder(View view, Context context) {
             super(view);
 
             view.setOnClickListener(this);
@@ -85,7 +86,7 @@ public class ArtistsRVAdapter extends RecyclerView.Adapter<ArtistsRVAdapter.View
         @Override
         public void onClick(View v) {
             Artist temp = artistsList.get(getPosition());
-            ActivityNavigator.startArtistActivity((Activity)context,temp,artistImage);
+            ActivityNavigator.startArtistActivity((Activity) context, temp, artistImage);
         }
     }
 }
