@@ -6,6 +6,9 @@ import android.os.Parcelable;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.realm.RealmObject;
+import io.realm.annotations.Ignore;
+
 
 public class Artist implements Parcelable {
 
@@ -17,6 +20,10 @@ public class Artist implements Parcelable {
     private Integer tracks;
     private Integer albums;
     private String link;
+
+
+    public Artist() {
+    }
 
     protected Artist(Parcel in) {
 

@@ -3,11 +3,16 @@ package com.ilyasavin.yandexartists.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import io.realm.RealmObject;
+
 
 public class Cover implements Parcelable {
 
     private String small;
     private String big;
+
+    public Cover() {
+    }
 
     protected Cover(Parcel in) {
         small = in.readString();

@@ -9,13 +9,18 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ilyasavin.yandexartists.components.Constants;
 import com.ilyasavin.yandexartists.models.Artist;
+import com.ilyasavin.yandexartists.models.ArtistRealm;
 import com.squareup.picasso.Picasso;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import io.realm.Realm;
+import io.realm.RealmQuery;
+import io.realm.RealmResults;
 
 public class ArtistInfoActivity extends BaseActivity {
 
@@ -66,5 +71,23 @@ public class ArtistInfoActivity extends BaseActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        realm.beginTransaction();
+
+        ArtistRealm artist = realm.createObject(ArtistRealm.class);
+
+        artist.setName(mArtist.getName());
+
+        realm.commitTransaction();
+
+
+
+        // Build the query looking at all users:
+        RealmQuery<ArtistRealm> query = realm.where(ArtistRealm.class);
+
+// Execute the query:
+        RealmResults<ArtistRealm> result1 = query.findAll();
+
+        Toast.makeText(this, " "+result1.size() + result1.get(result1.size()-1).getName(), Toast.LENGTH_SHORT).show();
     }
 }

@@ -3,6 +3,7 @@ package com.ilyasavin.yandexartists;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -17,11 +18,14 @@ import com.ilyasavin.yandexartists.adapters.ArtistsRVAdapter;
 import com.ilyasavin.yandexartists.api.APIManager;
 import com.ilyasavin.yandexartists.components.ArtistsController;
 import com.ilyasavin.yandexartists.models.Artist;
+import com.ilyasavin.yandexartists.models.ArtistRealm;
 import com.ilyasavin.yandexartists.views.MaterialDrawer;
 
 import java.util.List;
 
 import butterknife.Bind;
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -37,6 +41,7 @@ public class MainActivity extends BaseActivity {
     @Bind(R.id.toolbar)
     Toolbar toolbar;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +51,8 @@ public class MainActivity extends BaseActivity {
         initViewElements();
         APIManager.getApiService().getData(callback);
 
+
+
     }
 
     private void initViewElements() {
@@ -54,7 +61,7 @@ public class MainActivity extends BaseActivity {
         MaterialDrawer materialDrawer = new MaterialDrawer();
         materialDrawer.initDrawer(toolbar, this);
         mArtistsView.setHasFixedSize(true);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this,1);
         mArtistsView.setLayoutManager(layoutManager);
         mArtistsView.setOnScrollListener(onScrollListener);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
@@ -69,7 +76,10 @@ public class MainActivity extends BaseActivity {
             mArtistController.setArtistsList(artists);
             ArtistsRVAdapter mArtistsRVAdapter = new ArtistsRVAdapter(MainActivity.this, mArtistController.getSortedArtistsList());
             mArtistsView.setAdapter(mArtistsRVAdapter);
+
             progressBar.setVisibility(View.GONE);
+
+
 
         }
 
