@@ -7,6 +7,7 @@ import java.util.Comparator;
 /**
  * Created by Илья on 18.04.2016.
  */
+
 public class ArtistComporator implements Comparator<Artist> {
 
     public int compare(Artist artistItem1, Artist artistItem2) {

@@ -9,6 +9,7 @@ import java.util.List;
 /**
  * Created by ilyas on 4/17/2016.
  */
+
 public class ArtistsController {
 
     private List<Artist> mArtistsList = new ArrayList<>();
