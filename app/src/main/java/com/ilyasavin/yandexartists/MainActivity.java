@@ -1,14 +1,10 @@
 package com.ilyasavin.yandexartists;
 
-import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -18,14 +14,11 @@ import com.ilyasavin.yandexartists.adapters.ArtistsRVAdapter;
 import com.ilyasavin.yandexartists.api.APIManager;
 import com.ilyasavin.yandexartists.components.ArtistsController;
 import com.ilyasavin.yandexartists.models.Artist;
-import com.ilyasavin.yandexartists.models.ArtistRealm;
 import com.ilyasavin.yandexartists.views.MaterialDrawer;
 
 import java.util.List;
 
 import butterknife.Bind;
-import io.realm.Realm;
-import io.realm.RealmConfiguration;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;

@@ -4,7 +4,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
@@ -12,15 +11,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ilyasavin.yandexartists.components.Constants;
+import com.ilyasavin.yandexartists.db.RealmUtils;
 import com.ilyasavin.yandexartists.models.Artist;
-import com.ilyasavin.yandexartists.models.ArtistRealm;
+import com.ilyasavin.yandexartists.db.ArtistRealm;
 import com.squareup.picasso.Picasso;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
-import io.realm.Realm;
-import io.realm.RealmQuery;
-import io.realm.RealmResults;
 
 public class ArtistInfoActivity extends BaseActivity {
 
@@ -33,26 +29,28 @@ public class ArtistInfoActivity extends BaseActivity {
     @Bind(R.id.toolbar)
     Toolbar toolbar;
 
+    private Artist mArtist;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_artist_info);
+
+        mArtist = getIntent().getParcelableExtra(Constants.ARTIST_EXTRA);
+
         initViewElements();
+
     }
 
     private void initViewElements() {
-
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             mImageView.setTransitionName(Constants.ARTIST_TRANSITION);
         }
 
-        Artist mArtist = getIntent().getParcelableExtra(Constants.ARTIST_EXTRA);
-
         Picasso.with(this).load(mArtist.getCover().getBig()).into(mImageView);
-
         toolbar.setTitle(mArtist.getName());
-        mGenresText.setText(mArtist.getGenres().get(0));
+        mGenresText.setText(android.text.TextUtils.join(",", mArtist.getGenres()));
         mDescriptionText.setText(mArtist.getDescription());
 
         toolbar.setNavigationIcon(R.drawable.ic_action_name);
@@ -67,27 +65,37 @@ public class ArtistInfoActivity extends BaseActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                if(addToFavorites(mArtist))
+                Snackbar.make(view,mArtist.getName()+ " added to favorites",Snackbar.LENGTH_SHORT)
+                        .show();
+                else
+                    Toast.makeText(ArtistInfoActivity.this," Already in your favorites!",Toast.LENGTH_SHORT).show();
+
             }
         });
 
-        realm.beginTransaction();
+    }
 
-        ArtistRealm artist = realm.createObject(ArtistRealm.class);
+    private boolean addToFavorites(Artist mArtist) {
 
-        artist.setName(mArtist.getName());
+        if(!RealmUtils.checkIfExists(realm,mArtist.getId())) {
+            realm.beginTransaction();
+            ArtistRealm artistRealm = new ArtistRealm(mArtist.getDescription(),
+                    mArtist.getCover().getSmall(),
+                    mArtist.getId(),
+                    mArtist.getName(),
+                    android.text.TextUtils.join(",", mArtist.getGenres()),
+                    mArtist.getTracks(),
+                    mArtist.getAlbums(),
+                    mArtist.getLink()
+            );
+            realm.copyToRealm(artistRealm);
+            realm.commitTransaction();
+            return true;
+        }
+        else {
+        return false;
+        }
 
-        realm.commitTransaction();
-
-
-
-        // Build the query looking at all users:
-        RealmQuery<ArtistRealm> query = realm.where(ArtistRealm.class);
-
-// Execute the query:
-        RealmResults<ArtistRealm> result1 = query.findAll();
-
-        Toast.makeText(this, " "+result1.size() + result1.get(result1.size()-1).getName(), Toast.LENGTH_SHORT).show();
     }
 }

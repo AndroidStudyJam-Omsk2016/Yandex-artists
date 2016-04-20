@@ -3,4 +3,7 @@
     <string name="title_activity_artist_info" translatable="false">ArtistInfoActivity</string>
     <string name="about_developer">About developer</string>
     <string name="developer_name">Ilya Savin</string>
+    <string name="favorite_artists">Favorite artists</string>
+    <string name="top_artists">Top artists</string>
+
 </resources>

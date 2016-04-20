@@ -25,6 +25,17 @@ public class Artist implements Parcelable {
     public Artist() {
     }
 
+    public Artist(String description, Integer id, Cover cover, String name, List<String> genres, Integer tracks, Integer albums, String link) {
+        this.description = description;
+        this.id = id;
+        this.cover = cover;
+        this.name = name;
+        this.genres = genres;
+        this.tracks = tracks;
+        this.albums = albums;
+        this.link = link;
+    }
+
     protected Artist(Parcel in) {
 
         description = in.readString();
