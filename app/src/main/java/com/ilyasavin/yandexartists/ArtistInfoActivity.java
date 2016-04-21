@@ -1,5 +1,6 @@
 package com.ilyasavin.yandexartists;
 
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -48,12 +49,12 @@ public class ArtistInfoActivity extends BaseActivity {
             mImageView.setTransitionName(Constants.ARTIST_TRANSITION);
         }
 
-        Picasso.with(this).load(mArtist.getCover().getBig()).into(mImageView);
+        Picasso.with(this).load(mArtist.getCover().getSmall()).into(mImageView);
         toolbar.setTitle(mArtist.getName());
         mGenresText.setText(android.text.TextUtils.join(",", mArtist.getGenres()));
         mDescriptionText.setText(mArtist.getDescription());
 
-        toolbar.setNavigationIcon(R.drawable.ic_action_name);
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_left_black_36dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

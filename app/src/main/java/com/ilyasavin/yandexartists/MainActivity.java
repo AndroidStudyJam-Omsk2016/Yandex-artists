@@ -97,7 +97,6 @@ public class MainActivity extends BaseActivity {
         mArtistsView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this,1);
         mArtistsView.setLayoutManager(layoutManager);
-        mArtistsView.setOnScrollListener(onScrollListener);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
     }
@@ -128,31 +127,6 @@ public class MainActivity extends BaseActivity {
         mArtistsView.setVisibility(View.VISIBLE);
     }
 
-    public RecyclerView.OnScrollListener onScrollListener = new RecyclerView.OnScrollListener() {
-
-        boolean hideToolBar = false;
-
-        @Override
-        public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-            super.onScrollStateChanged(recyclerView, newState);
-            if (hideToolBar) {
-                toolbar.setVisibility(View.GONE);
-            } else {
-                toolbar.setVisibility(View.VISIBLE);
-            }
-        }
-
-        @Override
-        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-            super.onScrolled(recyclerView, dx, dy);
-            if (dy > 10) {
-                hideToolBar = true;
-
-            } else if (dy < -5) {
-                hideToolBar = false;
-            }
-        }
-    };
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
