@@ -3,6 +3,7 @@ package com.ilyasavin.yandexartists;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,6 +17,7 @@ import com.ilyasavin.yandexartists.components.ArtistsController;
 import com.ilyasavin.yandexartists.models.Artist;
 import com.ilyasavin.yandexartists.views.MaterialDrawer;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -34,6 +36,9 @@ public class MainActivity extends BaseActivity {
     @Bind(R.id.toolbar)
     Toolbar toolbar;
 
+    private SearchView mSearchView;
+    private MenuItem mSearchMenuItem;
+    private SearchView.OnQueryTextListener mListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +49,43 @@ public class MainActivity extends BaseActivity {
         initViewElements();
         APIManager.getApiService().getData(callback);
 
+        mListener = new SearchView.OnQueryTextListener() {
 
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+
+
+                progressBar.setVisibility(View.VISIBLE);
+                mArtistsView.setVisibility(View.GONE);
+
+                APIManager.getApiService().getData(callback);
+
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if (!mSearchView.hasFocus())
+                    mSearchMenuItem.setVisible(false);
+
+                ArrayList<Artist> tempSearchList = new ArrayList<>();
+                for (int  i =0 ; i<mArtistController.getArtistsList().size() ; i++){
+                    if(mArtistController.getArtistsList().get(i).getName().matches("(?i)("+newText+").*")){
+                        tempSearchList.add(mArtistController.getArtistsList().get(i));
+                    }
+
+                    ArtistsRVAdapter mArtistsRVAdapter = new ArtistsRVAdapter(MainActivity.this, tempSearchList);
+                    mArtistsView.setAdapter(mArtistsRVAdapter);
+
+                    progressBar.setVisibility(View.GONE);
+                    mArtistsView.setVisibility(View.VISIBLE);
+                }
+
+
+
+                return false;
+            }
+        };
 
     }
 
@@ -66,13 +107,7 @@ public class MainActivity extends BaseActivity {
         @Override
         public void success(List<Artist> artists, Response response2) {
 
-            mArtistController.setArtistsList(artists);
-            ArtistsRVAdapter mArtistsRVAdapter = new ArtistsRVAdapter(MainActivity.this, mArtistController.getSortedArtistsList());
-            mArtistsView.setAdapter(mArtistsRVAdapter);
-
-            progressBar.setVisibility(View.GONE);
-
-
+            showProgressAndUpdateData(artists);
 
         }
 
@@ -83,6 +118,15 @@ public class MainActivity extends BaseActivity {
 
         }
     };
+
+    private void showProgressAndUpdateData(List<Artist> artists) {
+        mArtistController.setArtistsList(artists);
+        ArtistsRVAdapter mArtistsRVAdapter = new ArtistsRVAdapter(MainActivity.this, mArtistController.getSortedArtistsList());
+        mArtistsView.setAdapter(mArtistsRVAdapter);
+
+        progressBar.setVisibility(View.GONE);
+        mArtistsView.setVisibility(View.VISIBLE);
+    }
 
     public RecyclerView.OnScrollListener onScrollListener = new RecyclerView.OnScrollListener() {
 
@@ -115,6 +159,13 @@ public class MainActivity extends BaseActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main_manu, menu);
 
+        mSearchMenuItem = menu.findItem(R.id.action_search);
+        mSearchView = (SearchView) mSearchMenuItem.getActionView();
+        mSearchView.setIconified(false);
+        mSearchView.onActionViewCollapsed();
+        mSearchView.setOnQueryTextListener(mListener);
+
+
         return true;
 
 
@@ -122,8 +173,6 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
-
 
         return super.onOptionsItemSelected(item);}
     }
