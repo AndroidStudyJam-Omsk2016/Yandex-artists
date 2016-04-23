@@ -47,6 +47,7 @@ public class ActivityNavigator {
 
         tempList.add(artistRealm.getGenres());
 
+
         Artist artist = new Artist(artistRealm.getDescription(),
                 artistRealm.getId(),
                 new Cover(artistRealm.getCover(),artistRealm.getCover()),

@@ -19,6 +19,9 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import io.realm.RealmList;
 
+/**
+ * Created by ilyas on 4/10/2016.
+ */
 public class GridRVAdapter extends RecyclerView.Adapter<GridRVAdapter.GridRVHolder> {
 
     private RealmArtistController mArtistController;

@@ -23,7 +23,16 @@ public class ArtistsController {
     }
 
     public ArrayList<Artist> getSortedArtistsList() {
-        Collections.sort(mArtistsList, new ArtistComporator());
-        return getArtistsList();
+        ArrayList arrayList = new ArrayList();
+        arrayList.addAll(mArtistsList);
+        Collections.sort(arrayList, new ArtistComporator());
+        return arrayList ;
+    }
+
+    public ArrayList<Artist> getSimpleArtistsList() {
+        ArrayList arrayList = new ArrayList();
+        arrayList.addAll(mArtistsList);
+        //Collections.sort(arrayList, new ArtistComporator());
+        return arrayList ;
     }
 }

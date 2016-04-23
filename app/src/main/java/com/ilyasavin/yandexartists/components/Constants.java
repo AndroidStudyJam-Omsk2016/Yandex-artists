@@ -7,4 +7,5 @@ public class Constants {
 
     public static final String ARTIST_TRANSITION = "ARTIST_ANIM";
     public static final String ARTIST_EXTRA = "Artist";
+    public static final String DATA_DOWNLOADED = "DATA_DOWNLOADED";
 }

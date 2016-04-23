@@ -5,5 +5,6 @@
     <string name="developer_name">Илья Савин</string>
     <string name="favorite_artists">Избранное</string>
     <string name="top_artists">Исполнители</string>
-    <string name="music_genres">Genres</string>
+    <string name="music_genres">Жанры</string>
+    <string name="menu_item_sort">По алфавиту</string>
 </resources>

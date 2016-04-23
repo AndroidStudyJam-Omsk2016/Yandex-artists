@@ -12,6 +12,10 @@ import android.view.ViewGroup;
 import com.ilyasavin.yandexartists.R;
 import com.ilyasavin.yandexartists.adapters.GridRVAdapter;
 import com.ilyasavin.yandexartists.db.ArtistRealm;
+import com.ilyasavin.yandexartists.models.Artist;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import io.realm.Realm;
 import io.realm.RealmList;
@@ -21,15 +25,14 @@ import io.realm.RealmResults;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FavoritesFragment extends Fragment {
+public class FavoritesFragment extends BaseFragment {
 
 
-    RecyclerView recyclerView;
+    private RecyclerView recyclerView;
 
     public FavoritesFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -42,7 +45,7 @@ public class FavoritesFragment extends Fragment {
         return view;
     }
 
-    private void initViewElements(View view) {
+    protected void initViewElements(View view) {
 
         GridLayoutManager mGridLayoutManager = new GridLayoutManager(getActivity(), 2);
 

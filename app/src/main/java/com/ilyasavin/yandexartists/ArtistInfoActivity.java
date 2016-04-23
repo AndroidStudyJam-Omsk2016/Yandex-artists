@@ -54,7 +54,7 @@ public class ArtistInfoActivity extends BaseActivity {
         mGenresText.setText(android.text.TextUtils.join(",", mArtist.getGenres()));
         mDescriptionText.setText(mArtist.getDescription());
 
-        toolbar.setNavigationIcon(R.drawable.ic_arrow_left_black_36dp);
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_left_black_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,6 +63,8 @@ public class ArtistInfoActivity extends BaseActivity {
         });
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        if(RealmUtils.checkIfExists(realm,mArtist.getId()))
+            fab.setImageDrawable(getResources().getDrawable(R.drawable.ic_star_white_24dp));
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -78,9 +80,8 @@ public class ArtistInfoActivity extends BaseActivity {
     }
 
     private boolean addToFavorites(Artist mArtist) {
-
+        realm.beginTransaction();
         if(!RealmUtils.checkIfExists(realm,mArtist.getId())) {
-            realm.beginTransaction();
             ArtistRealm artistRealm = new ArtistRealm(mArtist.getDescription(),
                     mArtist.getCover().getSmall(),
                     mArtist.getId(),
@@ -95,6 +96,7 @@ public class ArtistInfoActivity extends BaseActivity {
             return true;
         }
         else {
+
         return false;
         }
 

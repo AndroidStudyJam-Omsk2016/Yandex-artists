@@ -1,4 +1,4 @@
-package com.ilyasavin.yandexartists.models;
+package com.ilyasavin.yandexartists.db;
 
 import io.realm.RealmObject;
 

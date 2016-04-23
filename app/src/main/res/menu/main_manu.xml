@@ -9,10 +9,11 @@
         android:visible="true"/>
 
     <item
-        android:id="@+id/action_filter"
-        android:title=""
-        app:showAsAction="always"
+        android:id="@+id/action_filter1"
+        android:title="@string/menu_item_sort"
+        app:showAsAction="never"
         android:icon="@drawable/ic_filter_black_18dp"
         android:visible="true"/>
+
 
 </menu>

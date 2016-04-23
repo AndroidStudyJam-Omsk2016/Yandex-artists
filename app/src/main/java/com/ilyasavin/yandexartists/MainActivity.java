@@ -1,6 +1,11 @@
 package com.ilyasavin.yandexartists;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -9,11 +14,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.ilyasavin.yandexartists.adapters.ArtistsRVAdapter;
-import com.ilyasavin.yandexartists.api.APIManager;
 import com.ilyasavin.yandexartists.components.ArtistsController;
+import com.ilyasavin.yandexartists.components.Constants;
+import com.ilyasavin.yandexartists.data.DataService;
 import com.ilyasavin.yandexartists.models.Artist;
 import com.ilyasavin.yandexartists.views.MaterialDrawer;
 
@@ -21,11 +26,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
-import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements SearchView.OnQueryTextListener,SwipeRefreshLayout.OnRefreshListener {
+
+    private ArtistsController mArtistController;
+    private SearchView mSearchView;
+    private MenuItem mSearchMenuItem;
 
     @Bind(R.id.progressBar)
     ProgressBar progressBar;
@@ -33,56 +39,21 @@ public class MainActivity extends BaseActivity {
     RecyclerView mArtistsView;
     @Bind(R.id.toolbar)
     Toolbar toolbar;
-
-    private ArtistsController mArtistController;
-    private SearchView mSearchView;
-    private MenuItem mSearchMenuItem;
-    private SearchView.OnQueryTextListener mListener;
+    @Bind(R.id.swipe_refresh)
+    SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_main);
         mArtistController = new ArtistsController();
+
+        getData();
+
+        setContentView(R.layout.activity_main);
+
+        initBroadcastReceivers();
         initViewElements();
-        APIManager.getApiService().getData(callback);
-
-        mListener = new SearchView.OnQueryTextListener() {
-
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-
-                progressBar.setVisibility(View.VISIBLE);
-                mArtistsView.setVisibility(View.GONE);
-
-                APIManager.getApiService().getData(callback);
-
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                if (!mSearchView.hasFocus())
-                    mSearchMenuItem.setVisible(false);
-
-                ArrayList<Artist> tempSearchList = new ArrayList<>();
-                for (int  i = 0 ; i < mArtistController.getArtistsList().size() ; i++){
-                    if(mArtistController.getArtistsList().get(i).getName().matches("(?i)("+newText+").*")){
-                        tempSearchList.add(mArtistController.getArtistsList().get(i));
-                    }
-
-                    ArtistsRVAdapter mArtistsRVAdapter = new ArtistsRVAdapter(MainActivity.this, tempSearchList);
-                    mArtistsView.setAdapter(mArtistsRVAdapter);
-                    progressBar.setVisibility(View.GONE);
-                    mArtistsView.setVisibility(View.VISIBLE);
-                }
-
-
-
-                return false;
-            }
-        };
 
     }
 
@@ -95,34 +66,65 @@ public class MainActivity extends BaseActivity {
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this,1);
         mArtistsView.setLayoutManager(layoutManager);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
-
+        swipeRefreshLayout.setOnRefreshListener(this);
     }
 
-    public Callback<List<Artist>> callback = new Callback<List<Artist>>() {
-
+    BroadcastReceiver mDataDownloadReceiver =  new BroadcastReceiver() {
         @Override
-        public void success(List<Artist> artists, Response response2) {
+        public void onReceive(Context context, Intent intent) {
+            switch (intent.getAction()) {
 
-            showProgressAndUpdateData(artists);
-
-        }
-
-        @Override
-        public void failure(RetrofitError error) {
-
-            Toast.makeText(MainActivity.this, "Response error", Toast.LENGTH_SHORT).show();
-
+                case Constants.DATA_DOWNLOADED:
+                    swipeRefreshLayout.setRefreshing(false);
+                    getData();
+                    break;
+            }
         }
     };
 
+    private void initBroadcastReceivers() {
+
+        IntentFilter filter= new IntentFilter();
+        filter.addAction(Constants.DATA_DOWNLOADED);
+        registerReceiver(mDataDownloadReceiver,filter);
+
+    }
+
+    private void getData(){
+        DataService.init().getDataFromServer(new DataService.onArtistsResult() {
+            public void onArtistsResult(List<Artist> artists) {
+                showProgressAndUpdateData(artists);
+            }
+        });
+    }
+
     private void showProgressAndUpdateData(List<Artist> artists) {
+
         mArtistController.setArtistsList(artists);
         ArtistsRVAdapter mArtistsRVAdapter = new ArtistsRVAdapter(MainActivity.this,
-                mArtistController.getSortedArtistsList());
+                mArtistController.getArtistsList());
         mArtistsView.setAdapter(mArtistsRVAdapter);
 
         progressBar.setVisibility(View.GONE);
+        swipeRefreshLayout.setRefreshing(false);
         mArtistsView.setVisibility(View.VISIBLE);
+    }
+
+    private void searchArtists(String newText) {
+        ArrayList<Artist> tempSearchList = new ArrayList<>();
+        for (int  i = 0 ; i < mArtistController.getArtistsList().size() ; i++){
+            if(mArtistController.getArtistsList().get(i).getName().matches("(?i)("+newText+").*")){
+                tempSearchList.add(mArtistController.getArtistsList().get(i));
+            }
+
+            ArtistsRVAdapter mArtistsRVAdapter = new ArtistsRVAdapter(MainActivity.this,
+                   tempSearchList);
+            mArtistsView.setAdapter(mArtistsRVAdapter);
+
+            progressBar.setVisibility(View.GONE);
+            swipeRefreshLayout.setRefreshing(false);
+            mArtistsView.setVisibility(View.VISIBLE);
+        }
     }
 
 
@@ -131,20 +133,60 @@ public class MainActivity extends BaseActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main_manu, menu);
 
-        mSearchMenuItem = menu.findItem(R.id.action_search);
-        mSearchView = (SearchView) mSearchMenuItem.getActionView();
-        mSearchView.setIconified(false);
-        mSearchView.onActionViewCollapsed();
-        mSearchView.setOnQueryTextListener(mListener);
-
+        initSearchItems(menu);
 
         return true;
 
 
     }
 
+    private void initSearchItems(Menu menu) {
+        mSearchMenuItem = menu.findItem(R.id.action_search);
+        mSearchView = (SearchView) mSearchMenuItem.getActionView();
+        mSearchView.setIconified(false);
+        mSearchView.onActionViewCollapsed();
+        mSearchView.setOnQueryTextListener(this);
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
+        switch (item.getItemId()) {
+
+            case R.id.action_filter1:
+                showProgressAndUpdateData(mArtistController.getSortedArtistsList());
+                break;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
         return super.onOptionsItemSelected(item);}
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+
+        getData();
+        mSearchMenuItem.setVisible(true);
+        return false;
+
     }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        if (!mSearchView.hasFocus()){
+            mSearchMenuItem.setVisible(false);
+        }
+
+        searchArtists(newText);
+
+        return false;
+
+    }
+
+    @Override
+    public void onRefresh() {
+        getData();
+        swipeRefreshLayout.setRefreshing(true);
+
+    }
+}
