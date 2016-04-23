@@ -27,8 +27,6 @@ import retrofit.client.Response;
 
 public class MainActivity extends BaseActivity {
 
-    private ArtistsController mArtistController;
-
     @Bind(R.id.progressBar)
     ProgressBar progressBar;
     @Bind(R.id.card_recycler_view)
@@ -36,6 +34,7 @@ public class MainActivity extends BaseActivity {
     @Bind(R.id.toolbar)
     Toolbar toolbar;
 
+    private ArtistsController mArtistController;
     private SearchView mSearchView;
     private MenuItem mSearchMenuItem;
     private SearchView.OnQueryTextListener mListener;
@@ -54,7 +53,6 @@ public class MainActivity extends BaseActivity {
             @Override
             public boolean onQueryTextSubmit(String query) {
 
-
                 progressBar.setVisibility(View.VISIBLE);
                 mArtistsView.setVisibility(View.GONE);
 
@@ -69,14 +67,13 @@ public class MainActivity extends BaseActivity {
                     mSearchMenuItem.setVisible(false);
 
                 ArrayList<Artist> tempSearchList = new ArrayList<>();
-                for (int  i =0 ; i<mArtistController.getArtistsList().size() ; i++){
+                for (int  i = 0 ; i < mArtistController.getArtistsList().size() ; i++){
                     if(mArtistController.getArtistsList().get(i).getName().matches("(?i)("+newText+").*")){
                         tempSearchList.add(mArtistController.getArtistsList().get(i));
                     }
 
                     ArtistsRVAdapter mArtistsRVAdapter = new ArtistsRVAdapter(MainActivity.this, tempSearchList);
                     mArtistsView.setAdapter(mArtistsRVAdapter);
-
                     progressBar.setVisibility(View.GONE);
                     mArtistsView.setVisibility(View.VISIBLE);
                 }
@@ -120,7 +117,8 @@ public class MainActivity extends BaseActivity {
 
     private void showProgressAndUpdateData(List<Artist> artists) {
         mArtistController.setArtistsList(artists);
-        ArtistsRVAdapter mArtistsRVAdapter = new ArtistsRVAdapter(MainActivity.this, mArtistController.getSortedArtistsList());
+        ArtistsRVAdapter mArtistsRVAdapter = new ArtistsRVAdapter(MainActivity.this,
+                mArtistController.getSortedArtistsList());
         mArtistsView.setAdapter(mArtistsRVAdapter);
 
         progressBar.setVisibility(View.GONE);

@@ -86,6 +86,7 @@ public class ArtistsRVAdapter extends RecyclerView.Adapter<ArtistsRVAdapter.View
         @Override
         public void onClick(View v) {
             Artist temp = artistsList.get(getPosition());
+            artistImage.setBackground(context.getResources().getDrawable(R.drawable.imageview_gradient));
             ActivityNavigator.startArtistActivity((Activity) context, temp, artistImage);
         }
     }

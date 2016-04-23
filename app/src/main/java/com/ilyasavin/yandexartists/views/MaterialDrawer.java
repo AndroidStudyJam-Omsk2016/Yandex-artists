@@ -27,6 +27,7 @@ public class MaterialDrawer extends BaseActivity {
         PrimaryDrawerItem itemAllArtists= new PrimaryDrawerItem().withName(R.string.top_artists).withIcon(R.drawable.ic_music_circle_black_24dp);
         PrimaryDrawerItem itemFavorites = new PrimaryDrawerItem().withName(R.string.favorite_artists).withIcon(R.drawable.ic_star_black_24dp);
         PrimaryDrawerItem itemHome = new PrimaryDrawerItem().withName(R.string.about_developer).withIcon(R.drawable.account_circle);
+        PrimaryDrawerItem itemGenres = new PrimaryDrawerItem().withName(R.string.music_genres).withIcon(R.drawable.ic_disk_black_24dp);
 
         AccountHeader headerResult;
 
@@ -55,6 +56,7 @@ public class MaterialDrawer extends BaseActivity {
                 .addDrawerItems(
                         itemAllArtists,
                         itemFavorites,
+                        itemGenres,
                         new DividerDrawerItem(),
                         itemHome
 
