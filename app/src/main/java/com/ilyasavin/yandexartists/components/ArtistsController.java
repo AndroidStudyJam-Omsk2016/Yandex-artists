@@ -7,7 +7,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Created by ilyas on 4/17/2016.
+ * A class that holds collection of Artist models.
  */
 
 public class ArtistsController {
@@ -29,10 +29,6 @@ public class ArtistsController {
         return arrayList ;
     }
 
-    public ArrayList<Artist> getSimpleArtistsList() {
-        ArrayList arrayList = new ArrayList();
-        arrayList.addAll(mArtistsList);
-        //Collections.sort(arrayList, new ArtistComporator());
-        return arrayList ;
+
     }
-}
+

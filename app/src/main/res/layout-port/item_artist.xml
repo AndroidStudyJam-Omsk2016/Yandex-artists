@@ -10,8 +10,8 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="@dimen/image_artist_size"
+            android:layout_height="@dimen/image_artist_size"
             android:id="@+id/img_android"
             android:layout_marginRight="20dp"
             android:layout_alignParentTop="true"
@@ -29,23 +29,29 @@
             android:layout_margin="16dp">
 
             <TextView
-               android:textSize="18sp"
+               android:textSize="@dimen/text_large"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:id="@+id/tv_name"
                android:textStyle="bold"
                 android:text="Name" />
             <TextView
-                android:textSize="14sp"
+                android:textSize="@dimen/text_medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/tv_genres"
                 android:text="genre" />
             <TextView
-                android:textSize="12sp"
+                android:textSize="@dimen/text_small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/tv_amount"
+                android:id="@+id/tv_tracks"
+                android:text="10 albums" />
+            <TextView
+                android:textSize="@dimen/text_smallest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_albums"
                 android:text="10 albums" />
 
 

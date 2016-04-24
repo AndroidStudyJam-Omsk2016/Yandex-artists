@@ -4,11 +4,11 @@ import io.realm.Realm;
 import io.realm.RealmQuery;
 
 /**
- * Created by ilyas on 4/20/2016.
+ * Contains methods for realm database
  */
 public class RealmUtils {
 
-    public static boolean checkIfExists(Realm realm,int id){
+    public static boolean checkIfExists(Realm realm, int id) {
 
         RealmQuery<ArtistRealm> query = realm.where(ArtistRealm.class)
                 .equalTo("id", id);

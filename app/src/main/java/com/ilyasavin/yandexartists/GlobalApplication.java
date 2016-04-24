@@ -9,7 +9,7 @@ import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
 /**
- * Created by ilyas on 4/17/2016.
+ * The main Application subclass with Realm and Picasso settings.
  */
 public class GlobalApplication extends Application {
 

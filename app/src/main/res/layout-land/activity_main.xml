@@ -25,6 +25,25 @@
 
     </android.support.design.widget.AppBarLayout>
 
+    <FrameLayout
+        android:id="@+id/no_favorites"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:foregroundGravity="center_vertical|center_horizontal">
+
+        <TextView
+            android:id="@+id/text_no_favorite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/no_favorites"
+            android:textSize="@dimen/text_large"
+            android:layout_gravity="center" />
+
+    </FrameLayout>
+
 
     <LinearLayout
         app:layout_behavior="@string/appbar_scrolling_view_behavior"

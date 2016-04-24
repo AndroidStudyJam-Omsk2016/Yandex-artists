@@ -6,10 +6,9 @@ import android.os.Parcelable;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.realm.RealmObject;
-import io.realm.annotations.Ignore;
-
-
+/**
+ * An artist model for Api response.
+ */
 public class Artist implements Parcelable {
 
     private String description;

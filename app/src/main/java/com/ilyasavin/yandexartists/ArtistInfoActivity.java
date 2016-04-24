@@ -1,6 +1,6 @@
 package com.ilyasavin.yandexartists;
 
-import android.graphics.Color;
+
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -12,13 +12,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ilyasavin.yandexartists.components.Constants;
+import com.ilyasavin.yandexartists.db.ArtistRealm;
 import com.ilyasavin.yandexartists.db.RealmUtils;
 import com.ilyasavin.yandexartists.models.Artist;
-import com.ilyasavin.yandexartists.db.ArtistRealm;
 import com.squareup.picasso.Picasso;
 
 import butterknife.Bind;
 
+/**
+ * The activity is used to show additional information of artist.
+ */
 public class ArtistInfoActivity extends BaseActivity {
 
     @Bind(R.id.artistImage)
@@ -29,6 +32,8 @@ public class ArtistInfoActivity extends BaseActivity {
     TextView mGenresText;
     @Bind(R.id.toolbar)
     Toolbar toolbar;
+    @Bind(R.id.fab)
+    FloatingActionButton fab;
 
     private Artist mArtist;
 
@@ -62,17 +67,16 @@ public class ArtistInfoActivity extends BaseActivity {
             }
         });
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        if(RealmUtils.checkIfExists(realm,mArtist.getId()))
+        if (RealmUtils.checkIfExists(realm, mArtist.getId()))
             fab.setImageDrawable(getResources().getDrawable(R.drawable.ic_star_white_24dp));
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(addToFavorites(mArtist))
-                Snackbar.make(view,mArtist.getName()+ " added to favorites",Snackbar.LENGTH_SHORT)
-                        .show();
+                if (addToFavorites(mArtist))
+                    Snackbar.make(view, mArtist.getName() + " "+getString(R.string.added_to_favorites), Snackbar.LENGTH_SHORT)
+                            .show();
                 else
-                    Toast.makeText(ArtistInfoActivity.this," Already in your favorites!",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ArtistInfoActivity.this, " "+R.string.already_in_favorites, Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -81,7 +85,7 @@ public class ArtistInfoActivity extends BaseActivity {
 
     private boolean addToFavorites(Artist mArtist) {
         realm.beginTransaction();
-        if(!RealmUtils.checkIfExists(realm,mArtist.getId())) {
+        if (!RealmUtils.checkIfExists(realm, mArtist.getId())) {
             ArtistRealm artistRealm = new ArtistRealm(mArtist.getDescription(),
                     mArtist.getCover().getSmall(),
                     mArtist.getId(),
@@ -94,10 +98,9 @@ public class ArtistInfoActivity extends BaseActivity {
             realm.copyToRealm(artistRealm);
             realm.commitTransaction();
             return true;
-        }
-        else {
+        } else {
 
-        return false;
+            return false;
         }
 
     }

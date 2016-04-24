@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="image_artist_size">250dp</dimen>
+    <dimen name="image_artist_grid_size">500dp</dimen>
+    <dimen name="image_artist_info">600dp</dimen>
+    <dimen name="text_large">32sp</dimen>
+    <dimen name="text_medium">24sp</dimen>
+    <dimen name="text_small">18sp</dimen>
+    <dimen name="text_smallest">16sp</dimen>
+</resources>

@@ -20,11 +20,6 @@
             android:layout_margin="@dimen/text_margin"
             android:layout_height="match_parent"
             android:text="genres,genres"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_margin="@dimen/text_margin"
-            android:layout_height="match_parent"
-            android:text="Biography"/>
 
         <TextView
             android:id="@+id/tv_descr"

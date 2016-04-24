@@ -8,6 +8,9 @@ import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.http.GET;
 
+/**
+ * A manager that allows get data from network using Retrofit
+ */
 public class APIManager {
 
     private static ApiService apiService;

@@ -1,9 +1,5 @@
 package com.ilyasavin.yandexartists;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
@@ -17,7 +13,6 @@ import android.widget.ProgressBar;
 
 import com.ilyasavin.yandexartists.adapters.ArtistsRVAdapter;
 import com.ilyasavin.yandexartists.components.ArtistsController;
-import com.ilyasavin.yandexartists.components.Constants;
 import com.ilyasavin.yandexartists.data.DataService;
 import com.ilyasavin.yandexartists.models.Artist;
 import com.ilyasavin.yandexartists.views.MaterialDrawer;
@@ -27,7 +22,10 @@ import java.util.List;
 
 import butterknife.Bind;
 
-public class MainActivity extends BaseActivity implements SearchView.OnQueryTextListener,SwipeRefreshLayout.OnRefreshListener {
+/**
+ * The main activity of application is used to show list of artists.
+ */
+public class MainActivity extends BaseActivity implements SearchView.OnQueryTextListener, SwipeRefreshLayout.OnRefreshListener {
 
     private ArtistsController mArtistController;
     private SearchView mSearchView;
@@ -52,7 +50,6 @@ public class MainActivity extends BaseActivity implements SearchView.OnQueryText
 
         setContentView(R.layout.activity_main);
 
-        initBroadcastReceivers();
         initViewElements();
 
     }
@@ -63,34 +60,14 @@ public class MainActivity extends BaseActivity implements SearchView.OnQueryText
         MaterialDrawer materialDrawer = new MaterialDrawer();
         materialDrawer.initDrawer(toolbar, this);
         mArtistsView.setHasFixedSize(true);
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this,1);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 1);
         mArtistsView.setLayoutManager(layoutManager);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         swipeRefreshLayout.setOnRefreshListener(this);
     }
 
-    BroadcastReceiver mDataDownloadReceiver =  new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            switch (intent.getAction()) {
 
-                case Constants.DATA_DOWNLOADED:
-                    swipeRefreshLayout.setRefreshing(false);
-                    getData();
-                    break;
-            }
-        }
-    };
-
-    private void initBroadcastReceivers() {
-
-        IntentFilter filter= new IntentFilter();
-        filter.addAction(Constants.DATA_DOWNLOADED);
-        registerReceiver(mDataDownloadReceiver,filter);
-
-    }
-
-    private void getData(){
+    private void getData() {
         DataService.init().getDataFromServer(new DataService.onArtistsResult() {
             public void onArtistsResult(List<Artist> artists) {
                 showProgressAndUpdateData(artists);
@@ -112,13 +89,13 @@ public class MainActivity extends BaseActivity implements SearchView.OnQueryText
 
     private void searchArtists(String newText) {
         ArrayList<Artist> tempSearchList = new ArrayList<>();
-        for (int  i = 0 ; i < mArtistController.getArtistsList().size() ; i++){
-            if(mArtistController.getArtistsList().get(i).getName().matches("(?i)("+newText+").*")){
+        for (int i = 0; i < mArtistController.getArtistsList().size(); i++) {
+            if (mArtistController.getArtistsList().get(i).getName().matches("(?i)(" + newText + ").*")) {
                 tempSearchList.add(mArtistController.getArtistsList().get(i));
             }
 
             ArtistsRVAdapter mArtistsRVAdapter = new ArtistsRVAdapter(MainActivity.this,
-                   tempSearchList);
+                    tempSearchList);
             mArtistsView.setAdapter(mArtistsRVAdapter);
 
             progressBar.setVisibility(View.GONE);
@@ -160,7 +137,8 @@ public class MainActivity extends BaseActivity implements SearchView.OnQueryText
                 return super.onOptionsItemSelected(item);
         }
 
-        return super.onOptionsItemSelected(item);}
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     public boolean onQueryTextSubmit(String query) {
@@ -173,7 +151,7 @@ public class MainActivity extends BaseActivity implements SearchView.OnQueryText
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        if (!mSearchView.hasFocus()){
+        if (!mSearchView.hasFocus()) {
             mSearchMenuItem.setVisible(false);
         }
 

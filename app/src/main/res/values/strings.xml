@@ -7,5 +7,12 @@
     <string name="top_artists">Top artists</string>
     <string name="music_genres">Genres</string>
     <string name="menu_item_sort">In alphabetical order</string>
-
+    <string name="added_to_favorites">" added to favorites"</string>
+    <string name="already_in_favorites">" Already in your favorites!"</string>
+    <string name="title_activity_developer" translatable="false">DeveloperActivity</string>
+    <string name="developer_github" translatable="false">https://github.com/ilyasavin</string>
+    <string name="developer_vk" translatable="false">https://vk.com/ilya__savin</string>
+    <string name="albums" translatable="false">albums</string>
+    <string name="tracks" translatable="false">tracks</string>
+    <string name="no_favorites">No favorites</string>
 </resources>

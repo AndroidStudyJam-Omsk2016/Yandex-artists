@@ -1,34 +1,28 @@
 package com.ilyasavin.yandexartists.adapters;
 
-/**
- * Created by ilyas on 4/10/2016.
- */
 
 import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.ilyasavin.yandexartists.MainActivity;
 import com.ilyasavin.yandexartists.R;
 import com.ilyasavin.yandexartists.models.Artist;
 import com.ilyasavin.yandexartists.navigator.ActivityNavigator;
 import com.squareup.picasso.Picasso;
-
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
+/**
+ * An adapter for the list of artists
+ */
 public class ArtistsRVAdapter extends RecyclerView.Adapter<ArtistsRVAdapter.ViewHolder> {
 
     private ArrayList<Artist> artistsList;
@@ -50,8 +44,9 @@ public class ArtistsRVAdapter extends RecyclerView.Adapter<ArtistsRVAdapter.View
 
         viewHolder.artistName.setText(artistsList.get(i).getName());
         viewHolder.genresNames.setText(android.text.TextUtils.join(",", artistsList.get(i).getGenres()));
-        viewHolder.amountSongs.setText(artistsList.get(i).getTracks() + " Tracks");
-        Picasso.with(context).load(artistsList.get(i).getCover().getSmall()).error(android.R.drawable.ic_delete)
+        viewHolder.amountAlbums.setText(artistsList.get(i).getAlbums() + " "+ context.getString(R.string.albums));
+        viewHolder.amountSongs.setText(artistsList.get(i).getTracks() + " "+ context.getString(R.string.tracks));
+        Picasso.with(context).load(artistsList.get(i).getCover().getSmall()).error(R.drawable.ic_music_note_white_48dp)
                 .placeholder(R.drawable.image_progress).into(viewHolder.artistImage);
 
     }
@@ -67,8 +62,10 @@ public class ArtistsRVAdapter extends RecyclerView.Adapter<ArtistsRVAdapter.View
         TextView artistName;
         @Bind(R.id.tv_genres)
         TextView genresNames;
-        @Bind(R.id.tv_amount)
+        @Bind(R.id.tv_tracks)
         TextView amountSongs;
+        @Bind(R.id.tv_albums)
+        TextView amountAlbums;
         @Bind(R.id.img_android)
         ImageView artistImage;
 

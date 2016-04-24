@@ -5,7 +5,7 @@ import com.ilyasavin.yandexartists.db.ArtistRealm;
 import io.realm.RealmList;
 
 /**
- * Created by ilyas on 4/20/2016.
+ * A class that holds collection of RealmArtist models.
  */
 public class RealmArtistController {
 

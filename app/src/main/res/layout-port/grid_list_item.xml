@@ -2,8 +2,8 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/card_view"
-    android:layout_width="300dp"
-    android:layout_height="300dp"
+    android:layout_width="@dimen/image_artist_grid_size"
+    android:layout_height="@dimen/image_artist_grid_size"
     card_view:cardUseCompatPadding="true"
     card_view:cardCornerRadius="8dp"
     android:layout_marginBottom="16dp">

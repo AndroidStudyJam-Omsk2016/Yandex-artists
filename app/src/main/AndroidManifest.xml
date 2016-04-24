@@ -27,7 +27,11 @@
         <activity
             android:name=".ArtistInfoActivity"
             android:label="@string/title_activity_artist_info"
-            android:theme="@style/AppThemeInfo"></activity>
+            android:theme="@style/AppThemeInfo" />
+        <activity
+            android:name=".DeveloperActivity"
+            android:label="@string/title_activity_developer"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

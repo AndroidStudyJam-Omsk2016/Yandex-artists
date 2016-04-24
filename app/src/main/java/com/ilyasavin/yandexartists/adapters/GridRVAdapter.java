@@ -20,7 +20,7 @@ import butterknife.ButterKnife;
 import io.realm.RealmList;
 
 /**
- * Created by ilyas on 4/10/2016.
+ * An adapter for the gridList of favorite artists {@link com.ilyasavin.yandexartists.fragments.FavoritesFragment}
  */
 public class GridRVAdapter extends RecyclerView.Adapter<GridRVAdapter.GridRVHolder> {
 
@@ -58,8 +58,10 @@ public class GridRVAdapter extends RecyclerView.Adapter<GridRVAdapter.GridRVHold
 
     public class GridRVHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        @Bind(R.id.shape_image_name) TextView artistItemName;
-        @Bind(R.id.shape_image_grid) ImageView artistItemImage;
+        @Bind(R.id.shape_image_name)
+        TextView artistItemName;
+        @Bind(R.id.shape_image_grid)
+        ImageView artistItemImage;
 
         public GridRVHolder(View itemView) {
             super(itemView);
@@ -70,8 +72,8 @@ public class GridRVAdapter extends RecyclerView.Adapter<GridRVAdapter.GridRVHold
         @Override
         public void onClick(View view) {
 
-            ActivityNavigator.startArtistActivityFromGrid((Activity)mContext,mArtistController.getArtistsList().get(getPosition()),artistItemImage);
+            ActivityNavigator.startArtistActivityFromGrid((Activity) mContext, mArtistController.getArtistsList().get(getPosition()), artistItemImage);
 
         }
-}
     }
+}

@@ -1,11 +1,11 @@
 package com.ilyasavin.yandexartists.components;
 
 /**
- * Created by ilyas on 4/17/2016.
+ * A constants are used in application.
  */
 public class Constants {
 
-    public static final String ARTIST_TRANSITION = "ARTIST_ANIM";
+    public static final String ARTIST_TRANSITION = "Artist_anim";
     public static final String ARTIST_EXTRA = "Artist";
-    public static final String DATA_DOWNLOADED = "DATA_DOWNLOADED";
+    public static final String ARTISTS_LIST = "Artists_list";
 }

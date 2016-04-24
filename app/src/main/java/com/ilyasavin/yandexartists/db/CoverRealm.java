@@ -3,7 +3,7 @@ package com.ilyasavin.yandexartists.db;
 import io.realm.RealmObject;
 
 /**
- * Created by ilyas on 4/19/2016.
+ * An artist cover model is used in realm database.
  */
 public class CoverRealm extends RealmObject {
 

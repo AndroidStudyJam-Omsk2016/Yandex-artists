@@ -9,6 +9,7 @@ import android.support.v4.util.Pair;
 import android.view.View;
 
 import com.ilyasavin.yandexartists.ArtistInfoActivity;
+import com.ilyasavin.yandexartists.DeveloperActivity;
 import com.ilyasavin.yandexartists.components.Constants;
 import com.ilyasavin.yandexartists.db.ArtistRealm;
 import com.ilyasavin.yandexartists.models.Artist;
@@ -19,7 +20,7 @@ import java.util.List;
 
 
 /**
- * Created by ilyas on 4/11/2016.
+ * Activity navigation.
  */
 public class ActivityNavigator {
 
@@ -50,14 +51,14 @@ public class ActivityNavigator {
 
         Artist artist = new Artist(artistRealm.getDescription(),
                 artistRealm.getId(),
-                new Cover(artistRealm.getCover(),artistRealm.getCover()),
+                new Cover(artistRealm.getCover(), artistRealm.getCover()),
                 artistRealm.getName(),
                 tempList,
                 artistRealm.getTracks(),
                 artistRealm.getAlbums(),
                 artistRealm.getLink());
 
-        intent.putExtra(Constants.ARTIST_EXTRA,artist );
+        intent.putExtra(Constants.ARTIST_EXTRA, artist);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             imageView.setTransitionName(Constants.ARTIST_TRANSITION);
@@ -68,5 +69,12 @@ public class ActivityNavigator {
         } else
             context.startActivity(intent);
     }
+
+    public static void startDeveloperActivity(Activity context) {
+
+        Intent intent = new Intent(context, DeveloperActivity.class);
+        context.startActivity(intent);
+    }
+
 }
 

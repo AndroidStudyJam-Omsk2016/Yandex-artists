@@ -7,4 +7,7 @@
     <string name="top_artists">Исполнители</string>
     <string name="music_genres">Жанры</string>
     <string name="menu_item_sort">По алфавиту</string>
+    <string name="added_to_favorites">добавлен в избранное</string>
+    <string name="already_in_favorites"> Уже находится в избранном!</string>
+    <string name="no_favorites">Избранные артисты\n отсутствуют</string>
 </resources>

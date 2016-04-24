@@ -3,9 +3,10 @@ package com.ilyasavin.yandexartists.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import io.realm.RealmObject;
 
-
+/**
+ * A cover model for Api response.
+ */
 public class Cover implements Parcelable {
 
     private String small;

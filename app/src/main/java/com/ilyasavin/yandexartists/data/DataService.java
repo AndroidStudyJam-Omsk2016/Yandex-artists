@@ -1,14 +1,8 @@
 package com.ilyasavin.yandexartists.data;
 
-import android.content.Context;
-import android.content.Intent;
-import android.widget.Toast;
-
 import com.ilyasavin.yandexartists.api.APIManager;
-import com.ilyasavin.yandexartists.components.Constants;
 import com.ilyasavin.yandexartists.models.Artist;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit.Callback;
@@ -16,7 +10,7 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 /**
- * Created by ilyas on 4/23/2016.
+ * A singleton class for interaction with {@link APIManager}.
  */
 public class DataService {
 
@@ -29,7 +23,7 @@ public class DataService {
         return dataService;
     }
 
-    public void getDataFromServer (final onArtistsResult listener) {
+    public void getDataFromServer(final onArtistsResult listener) {
 
         APIManager.getApiService().getData(new Callback<List<Artist>>() {
 
@@ -46,13 +40,15 @@ public class DataService {
 
             }
         });
-    };
+    }
+
+    ;
 
 
     public static interface onArtistsResult {
         public void onArtistsResult(List<Artist> artists);
     }
-    }
+}
 
 
 

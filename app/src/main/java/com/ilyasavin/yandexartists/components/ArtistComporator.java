@@ -5,7 +5,7 @@ import com.ilyasavin.yandexartists.models.Artist;
 import java.util.Comparator;
 
 /**
- * Created by Илья on 18.04.2016.
+ * A custom comporator for {@link Artist} objects.
  */
 
 public class ArtistComporator implements Comparator<Artist> {

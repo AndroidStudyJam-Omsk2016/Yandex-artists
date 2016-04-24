@@ -1,17 +1,10 @@
 package com.ilyasavin.yandexartists.db;
 
-import com.ilyasavin.yandexartists.components.RealmString;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import io.realm.RealmList;
 import io.realm.RealmObject;
-import io.realm.annotations.Ignore;
 import io.realm.annotations.PrimaryKey;
 
 /**
- * Created by ilyas on 4/19/2016.
+ * An artist model is used in realm database.
  */
 public class ArtistRealm extends RealmObject {
 

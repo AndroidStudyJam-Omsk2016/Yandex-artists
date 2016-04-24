@@ -6,6 +6,7 @@ import android.view.View;
 import com.ilyasavin.yandexartists.BaseActivity;
 import com.ilyasavin.yandexartists.R;
 import com.ilyasavin.yandexartists.fragments.FavoritesFragment;
+import com.ilyasavin.yandexartists.navigator.ActivityNavigator;
 import com.ilyasavin.yandexartists.navigator.FragmentNavigator;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
@@ -13,40 +14,27 @@ import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
-import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
-import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 
 
+/**
+ * A implementation of Navigaton Drawer using https://github.com/mikepenz/MaterialDrawer library.
+ */
 public class MaterialDrawer extends BaseActivity {
 
     public void initDrawer(android.support.v7.widget.Toolbar toolbar, final Activity activity) {
 
-        String developerName = activity.getString(R.string.developer_name);
-
-        PrimaryDrawerItem itemAllArtists= new PrimaryDrawerItem().withName(R.string.top_artists).withIcon(R.drawable.ic_music_circle_black_24dp);
+        PrimaryDrawerItem itemAllArtists = new PrimaryDrawerItem().withName(R.string.top_artists).withIcon(R.drawable.ic_music_circle_black_24dp);
         PrimaryDrawerItem itemFavorites = new PrimaryDrawerItem().withName(R.string.favorite_artists).withIcon(R.drawable.ic_star_black_24dp);
-        PrimaryDrawerItem itemHome = new PrimaryDrawerItem().withName(R.string.about_developer).withIcon(R.drawable.account_circle);
-        PrimaryDrawerItem itemGenres = new PrimaryDrawerItem().withName(R.string.music_genres).withIcon(R.drawable.ic_disk_black_24dp);
+        PrimaryDrawerItem itemHome = new PrimaryDrawerItem().withName(R.string.about_developer).withIcon(R.drawable.ic_account_card_details_black_24dp);
+
 
         AccountHeader headerResult;
 
 
         headerResult = new AccountHeaderBuilder()
                 .withActivity(activity)
-                .withHeaderBackground(R.color.primary_dark)
-                .addProfiles(
-                        new ProfileDrawerItem().withName(developerName).withIcon(activity.getResources().getDrawable(R.drawable.ic_account_circle_white_24dp))
-                )
-                .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
-                    @Override
-                    public boolean onProfileChanged(View view, IProfile profile, boolean currentProfile) {
-
-
-                        return false;
-                    }
-                })
-                .withSelectionListEnabledForSingleProfile(false)
+                .withHeaderBackground(R.drawable.drawer_background)
                 .build();
 
         Drawer result = new DrawerBuilder()
@@ -56,7 +44,6 @@ public class MaterialDrawer extends BaseActivity {
                 .addDrawerItems(
                         itemAllArtists,
                         itemFavorites,
-                        itemGenres,
                         new DividerDrawerItem(),
                         itemHome
 
@@ -68,11 +55,15 @@ public class MaterialDrawer extends BaseActivity {
                         switch (position) {
 
                             case 1:
-                                FragmentNavigator.removeFavoriteFragment(activity,new FavoritesFragment());
+                                FragmentNavigator.removeFavoriteFragment(activity, new FavoritesFragment());
                                 break;
                             case 2:
-                                FragmentNavigator.showFavoriteFragment(activity,new FavoritesFragment());
+                                FragmentNavigator.showFavoriteFragment(activity, new FavoritesFragment());
                                 break;
+                            case 4:
+                                ActivityNavigator.startDeveloperActivity(activity);
+                                break;
+
 
                         }
                         return false;
