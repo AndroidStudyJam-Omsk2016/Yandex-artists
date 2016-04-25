@@ -76,7 +76,7 @@ public class ArtistInfoActivity extends BaseActivity {
                     Snackbar.make(view, mArtist.getName() + " "+getString(R.string.added_to_favorites), Snackbar.LENGTH_SHORT)
                             .show();
                 else
-                    Toast.makeText(ArtistInfoActivity.this, " "+R.string.already_in_favorites, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ArtistInfoActivity.this, " "+getString(R.string.already_in_favorites), Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -84,8 +84,9 @@ public class ArtistInfoActivity extends BaseActivity {
     }
 
     private boolean addToFavorites(Artist mArtist) {
-        realm.beginTransaction();
+
         if (!RealmUtils.checkIfExists(realm, mArtist.getId())) {
+            realm.beginTransaction();
             ArtistRealm artistRealm = new ArtistRealm(mArtist.getDescription(),
                     mArtist.getCover().getSmall(),
                     mArtist.getId(),
